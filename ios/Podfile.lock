@@ -1,0 +1,51 @@
+PODS:
+  - "app_settings (3.0.0+1)":
+    - Flutter
+  - bluetooth_print (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - nfc_manager (0.0.1):
+    - Flutter
+  - Protobuf (3.22.3)
+  - reactive_ble_mobile (0.0.1):
+    - Flutter
+    - Protobuf (~> 3.5)
+    - SwiftProtobuf (~> 1.0)
+  - SwiftProtobuf (1.21.0)
+
+DEPENDENCIES:
+  - app_settings (from `.symlinks/plugins/app_settings/ios`)
+  - bluetooth_print (from `.symlinks/plugins/bluetooth_print/ios`)
+  - Flutter (from `Flutter`)
+  - nfc_manager (from `.symlinks/plugins/nfc_manager/ios`)
+  - reactive_ble_mobile (from `.symlinks/plugins/reactive_ble_mobile/ios`)
+
+SPEC REPOS:
+  trunk:
+    - Protobuf
+    - SwiftProtobuf
+
+EXTERNAL SOURCES:
+  app_settings:
+    :path: ".symlinks/plugins/app_settings/ios"
+  bluetooth_print:
+    :path: ".symlinks/plugins/bluetooth_print/ios"
+  Flutter:
+    :path: Flutter
+  nfc_manager:
+    :path: ".symlinks/plugins/nfc_manager/ios"
+  reactive_ble_mobile:
+    :path: ".symlinks/plugins/reactive_ble_mobile/ios"
+
+SPEC CHECKSUMS:
+  app_settings: d103828c9f5d515c4df9ee754dabd443f7cedcf3
+  bluetooth_print: da8f47e8881a0b1f0fd8d73cd6fa84c9bd41ac28
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  nfc_manager: d7da7cb781f7744b94df5fe9dbca904ac4a0939e
+  Protobuf: d03938d5f7e974a97964fb0567771e36fbe9ecce
+  reactive_ble_mobile: 9ce6723d37ccf701dbffd202d487f23f5de03b4c
+  SwiftProtobuf: afced68785854575756db965e9da52bbf3dc45e7
+
+PODFILE CHECKSUM: 7f0bfac41f9787090b6f0eb37e33baa2f408ebed
+
+COCOAPODS: 1.12.1
