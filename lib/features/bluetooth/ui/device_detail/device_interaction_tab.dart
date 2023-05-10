@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:besports/features/bluetooth/ble/ble_device_connector.dart';
 import 'package:besports/features/bluetooth/ble/ble_device_interactor.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +58,9 @@ class DeviceInteractionViewModel extends $DeviceInteractionViewModel {
 
   void connect() {
     deviceConnector.connect(deviceId);
+    Timer(const Duration(milliseconds: 100), () {
+      discoverServices();
+    });
   }
 
   void disconnect() {
@@ -80,8 +85,14 @@ class _DeviceInteractionTabState extends State<_DeviceInteractionTab> {
 
   @override
   void initState() {
-    discoveredServices = [];
     super.initState();
+    discoveredServices = [];
+    Timer(const Duration(milliseconds: 100), () {
+      if (!widget.viewModel.deviceConnected) {
+        widget.viewModel.connect();
+        discoverServices();
+      }
+    });
   }
 
   Future<void> discoverServices() async {
@@ -89,8 +100,6 @@ class _DeviceInteractionTabState extends State<_DeviceInteractionTab> {
     setState(() {
       discoveredServices = result;
     });
-    widget.viewModel.deviceConnected;
-    //widget.viewModel.connect;
   }
 
   @override
@@ -172,6 +181,7 @@ class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
   @override
   void initState() {
     _expandedItems = [];
+
     super.initState();
   }
 

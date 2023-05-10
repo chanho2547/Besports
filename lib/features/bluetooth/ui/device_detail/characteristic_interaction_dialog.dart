@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:besports/features/bluetooth/ble/ble_device_interactor.dart';
 import 'package:flutter/material.dart';
@@ -90,8 +91,9 @@ class _CharacteristicInteractionDialogState
 
   Future<void> readCharacteristic() async {
     final result = await widget.readCharacteristic(widget.characteristic);
+    final tmp = utf8.decode(result);
     setState(() {
-      readOutput = result.toString();
+      readOutput = tmp.toString();
     });
   }
 
@@ -131,10 +133,10 @@ class _CharacteristicInteractionDialogState
               border: OutlineInputBorder(),
               labelText: 'Value',
             ),
-            keyboardType: const TextInputType.numberWithOptions(
-              decimal: true,
-              signed: false,
-            ),
+            // keyboardType: const TextInputType.numberWithOptions(
+            //   decimal: true,
+            //   signed: false,
+            // ),
           ),
         ),
         Row(
@@ -158,15 +160,17 @@ class _CharacteristicInteractionDialogState
 
   List<Widget> get readSection => [
         sectionHeader('Read characteristic'),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ElevatedButton(
-              onPressed: readCharacteristic,
-              child: const Text('Read'),
-            ),
-            Text('Output: $readOutput'),
-          ],
+        SingleChildScrollView(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                onPressed: readCharacteristic,
+                child: const Text('Read'),
+              ),
+              Text('Output: $readOutput'),
+            ],
+          ),
         ),
       ];
 
