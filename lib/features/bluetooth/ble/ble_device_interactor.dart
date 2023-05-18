@@ -57,7 +57,7 @@ class BleDeviceInteractor {
       QualifiedCharacteristic characteristic) async {
     try {
       final result = await _readCharacteristic(characteristic);
-
+      print("I find here $result");
       _logMessage('Read ${characteristic.characteristicId}: value = $result');
       return result;
     } on Exception catch (e, s) {

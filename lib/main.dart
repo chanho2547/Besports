@@ -1,9 +1,9 @@
+import 'package:besports/features/authentication/login_screen.dart';
 import 'package:besports/features/bluetooth/ble/ble_device_connector.dart';
 import 'package:besports/features/bluetooth/ble/ble_device_interactor.dart';
 import 'package:besports/features/bluetooth/ble/ble_logger.dart';
 import 'package:besports/features/bluetooth/ble/ble_scanner.dart';
 import 'package:besports/features/bluetooth/ble/ble_status_monitor.dart';
-import 'package:besports/features/exercise/exercise_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:provider/provider.dart';
@@ -78,10 +78,7 @@ class BesportsApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ExerciseScreen(
-        id: "CHAN",
-        pw: "1234",
-      ),
+      home: const LoginScreen(),
       // remove debug banner
       debugShowCheckedModeBanner: false,
     );

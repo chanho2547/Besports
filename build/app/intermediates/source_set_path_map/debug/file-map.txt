@@ -18,4 +18,5 @@ com.example.besports.app-packaged_res-16 /Users/jungchanho/Documents/AnyThink/20
 com.example.besports.app-packaged_res-17 /Users/jungchanho/Documents/AnyThink/2023/besports/build/bluetooth_print/intermediates/packaged_res/debug
 com.example.besports.app-packaged_res-18 /Users/jungchanho/Documents/AnyThink/2023/besports/build/location/intermediates/packaged_res/debug
 com.example.besports.app-packaged_res-19 /Users/jungchanho/Documents/AnyThink/2023/besports/build/nfc_manager/intermediates/packaged_res/debug
-com.example.besports.app-packaged_res-20 /Users/jungchanho/Documents/AnyThink/2023/besports/build/reactive_ble_mobile/intermediates/packaged_res/debug
+com.example.besports.app-packaged_res-20 /Users/jungchanho/Documents/AnyThink/2023/besports/build/permission_handler_android/intermediates/packaged_res/debug
+com.example.besports.app-packaged_res-21 /Users/jungchanho/Documents/AnyThink/2023/besports/build/reactive_ble_mobile/intermediates/packaged_res/debug

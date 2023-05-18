@@ -81,7 +81,12 @@ class _CharacteristicInteractionDialogState
     subscribeStream =
         widget.subscribeToCharacteristic(widget.characteristic).listen((event) {
       setState(() {
+        print("subscribe button pressed, what I was finding");
+        print('event: $event');
+        print(utf8.decode(event));
+        // make event to string
         subscribeOutput = event.toString();
+        print('subscribeOutput: $subscribeOutput');
       });
     });
     setState(() {
@@ -91,9 +96,16 @@ class _CharacteristicInteractionDialogState
 
   Future<void> readCharacteristic() async {
     final result = await widget.readCharacteristic(widget.characteristic);
+
+    print('result: $result');
+    print('wiget.characteristic: ${widget.characteristic}');
     final tmp = utf8.decode(result);
+    print(tmp);
     setState(() {
       readOutput = tmp.toString();
+      print("count here");
+      print(readOutput.length);
+      print(readOutput);
     });
   }
 
