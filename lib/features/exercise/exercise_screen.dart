@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:app_settings/app_settings.dart';
-import 'package:besports/features/bluetooth/bluetooth_connection.dart';
 import 'package:besports/features/bluetooth/bluetooth_screen.dart';
-
 import 'package:flutter/material.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 
@@ -30,6 +28,9 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
   void initState() {
     super.initState();
     id = widget.id; // initState 메서드에서 widget.id를 사용하여 id를 초기화합니다.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      onNFCButtonPressedDown(); // 첫 프레임이 그려진 후에 onNFCButtonPressedDown 함수를 호출합니다.
+    });
   }
 
   String _handleNFCMessage(NfcTag tag) {
@@ -51,8 +52,8 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     if (Platform.isAndroid) {
       await showDialog(
         context: context,
-        builder: (context) =>
-            _AndroidSessionDialog("기기를 NFC 가까이에 가져다주세요.", _handleNFCMessage),
+        builder: (context) => _AndroidSessionDialog(
+            "$id 님, 기기를 NFC 가까이에 가져다주세요.", _handleNFCMessage),
       );
     }
     if (!(await NfcManager.instance.isAvailable())) {
@@ -94,11 +95,11 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
     });
   }
 
-  void onNFCButtonPressedUp() {
-    setState(() {
-      buttonColor = Colors.blue;
-    });
-  }
+  // void onNFCButtonPressedUp() {
+  //   setState(() {
+  //     buttonColor = Colors.blue;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -108,66 +109,53 @@ class _ExerciseScreenState extends State<ExerciseScreen> {
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             child: Column(
-              children: [
-                const SizedBox(
+              children: const [
+                SizedBox(
                   height: 100,
                 ),
-                Text(
-                  "$id 님\n반갑습니다!",
-                  style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 100,
-                ),
-                const Text(
-                  "Not Yet...!!",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                GestureDetector(
-                  onTapDown: (details) async {
-                    onNFCButtonPressedDown();
-                  },
-                  onTapUp: (details) {
-                    onNFCButtonPressedUp();
-                  },
-                  child: Container(
-                    width: 300,
-                    height: 300,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: buttonColor,
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "NFC 연결 임시버튼",
-                        style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const BluetoothConnection(),
-                      ),
-                    );
-                  },
-                  child: const Text("To TMP Page"),
-                ),
+                // Text(
+                //   "$id 님\n반갑습니다!",
+                //   style: const TextStyle(
+                //     fontSize: 30,
+                //     fontWeight: FontWeight.bold,
+                //   ),
+                // ),
+                // GestureDetector(
+                //   onTapDown: (details) async {
+                //     onNFCButtonPressedDown();
+                //   },
+                //   onTapUp: (details) {
+                //     onNFCButtonPressedUp();
+                //   },
+                //   child: Container(
+                //     width: 300,
+                //     height: 300,
+                //     decoration: BoxDecoration(
+                //       shape: BoxShape.circle,
+                //       color: buttonColor,
+                //     ),
+                //     child: const Center(
+                //       child: Text(
+                //         "NFC 연결 임시버튼",
+                //         style: TextStyle(
+                //           fontSize: 30,
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => const BluetoothConnection(),
+                //       ),
+                //     );
+                //   },
+                //   child: const Text("To TMP Page"),
+                // ),
               ],
             ),
           ),
@@ -211,6 +199,7 @@ class _AndroidSessionDialogState extends State<_AndroidSessionDialog> {
           Navigator.push(
             context,
             MaterialPageRoute(
+              // builder: (context) => BluetoothConnection(),
               builder: (context) => BluetoothScreen(
                 tmp: _result!,
               ),

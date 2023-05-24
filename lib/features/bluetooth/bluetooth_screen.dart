@@ -1,6 +1,8 @@
 import 'package:besports/features/bluetooth/ui/device_list.dart';
 import 'package:flutter/material.dart';
 
+// 거의 바로 넘어가는 페이지 이다
+
 class BluetoothScreen extends StatefulWidget {
   final dynamic tmp;
 
@@ -23,6 +25,7 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
+        // DeivceListScreen으로 넘어간다, 예제의 기본 화면이다
         builder: (context) => DeviceListScreen(
           tmp: tmp,
         ),
@@ -48,7 +51,7 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
               height: 10,
             ),
             Text(widget.tmp.toString().substring(3)),
-            // make two buttons, empty ontap
+            // make two buttons
             const SizedBox(
               height: 100,
             ),

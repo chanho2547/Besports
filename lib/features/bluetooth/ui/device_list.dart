@@ -59,7 +59,7 @@ class _DeviceListState extends State<_DeviceList> {
   @override
   void initState() {
     super.initState();
-    print("here is tmp: ${widget.tmp}");
+    //print("here is tmp: ${widget.tmp}");
     _uuidController = TextEditingController()
       ..addListener(() => setState(() {}));
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -97,7 +97,7 @@ class _DeviceListState extends State<_DeviceList> {
     widget.startScan(text.isEmpty ? [] : [Uuid.parse(_uuidController.text)]);
 
     // 원하는 디바이스를 찾는 로직 추가
-    Timer.periodic(const Duration(milliseconds: 500), (timer) {
+    Timer.periodic(const Duration(milliseconds: 1), (timer) {
       DiscoveredDevice? targetDevice;
       for (DiscoveredDevice device in widget.scannerState.discoveredDevices) {
         if (device.id == widget.tmp) {
@@ -238,3 +238,6 @@ class _DeviceListState extends State<_DeviceList> {
         ),
       );
 }
+
+
+// 6e400003-b5a3-f393-e0a9-e50e24dcca9e
