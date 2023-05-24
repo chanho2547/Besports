@@ -56,6 +56,7 @@ class _CharacteristicInteractionDialog extends StatefulWidget {
 
 class _CharacteristicInteractionDialogState
     extends State<_CharacteristicInteractionDialog> {
+  int count = 0;
   late String readOutput;
   late String writeOutput;
   late String subscribeOutput;
@@ -68,6 +69,9 @@ class _CharacteristicInteractionDialogState
     writeOutput = '';
     subscribeOutput = '';
     textEditingController = TextEditingController();
+
+    // 켜자마자 구독 시작
+    subscribeCharacteristic();
     super.initState();
   }
 
@@ -82,10 +86,13 @@ class _CharacteristicInteractionDialogState
         widget.subscribeToCharacteristic(widget.characteristic).listen((event) {
       setState(() {
         print("subscribe button pressed, what I was finding");
-        print('event: $event');
+        //print('event: $event');
         print(utf8.decode(event));
-        // make event to string
+        // stay this way for now, but we need to figure out how to get the data from the event
+
         subscribeOutput = event.toString();
+        count++;
+        print("subscribeOutput: $subscribeOutput");
       });
     });
     setState(() {
@@ -189,7 +196,8 @@ class _CharacteristicInteractionDialogState
               onPressed: subscribeCharacteristic,
               child: const Text('Subscribe'),
             ),
-            Text('Output: $subscribeOutput'),
+            //Text('Output: $subscribeOutput'),
+            Text('Count: $count'), // 카운팅 표시
           ],
         ),
       ];

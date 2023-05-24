@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:besports/features/bluetooth/ble/ble_device_connector.dart';
 import 'package:besports/features/bluetooth/ble/ble_device_interactor.dart';
@@ -207,23 +208,47 @@ class _ServiceDiscoveryListState extends State<_ServiceDiscoveryList> {
   }
 
   Widget _characteristicTile(
-          DiscoveredCharacteristic characteristic, String deviceId) =>
-      ListTile(
-        onTap: () => showDialog<void>(
+    DiscoveredCharacteristic characteristic,
+    String deviceId,
+  ) {
+    if (characteristic.isNotifiable) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        showDialog<void>(
+          context: context,
+          builder: (context) => CharacteristicInteractionDialog(
+            characteristic: QualifiedCharacteristic(
+              characteristicId: characteristic.characteristicId,
+              serviceId: characteristic.serviceId,
+              deviceId: deviceId,
+            ),
+          ),
+        );
+      });
+    }
+
+    return ListTile(
+      onTap: () {
+        if (!characteristic.isNotifiable) {
+          showDialog<void>(
             context: context,
             builder: (context) => CharacteristicInteractionDialog(
-                  characteristic: QualifiedCharacteristic(
-                      characteristicId: characteristic.characteristicId,
-                      serviceId: characteristic.serviceId,
-                      deviceId: deviceId),
-                )),
-        title: Text(
-          '${characteristic.characteristicId}\n(${_charactisticsSummary(characteristic)})',
-          style: const TextStyle(
-            fontSize: 14,
-          ),
+              characteristic: QualifiedCharacteristic(
+                characteristicId: characteristic.characteristicId,
+                serviceId: characteristic.serviceId,
+                deviceId: deviceId,
+              ),
+            ),
+          );
+        }
+      },
+      title: Text(
+        '${characteristic.characteristicId}\n(${_charactisticsSummary(characteristic)})',
+        style: const TextStyle(
+          fontSize: 14,
         ),
-      );
+      ),
+    );
+  }
 
   List<ExpansionPanel> buildPanels() {
     final panels = <ExpansionPanel>[];
