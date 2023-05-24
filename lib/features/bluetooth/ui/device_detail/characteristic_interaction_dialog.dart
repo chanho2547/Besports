@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:besports/features/bluetooth/ble/ble_device_interactor.dart';
+import 'package:besports/features/exercise/count_model.dart';
+import 'package:besports/features/exercise/exercise_count_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:provider/provider.dart';
@@ -62,6 +64,7 @@ class _CharacteristicInteractionDialogState
   late String subscribeOutput;
   late TextEditingController textEditingController;
   late StreamSubscription<List<int>>? subscribeStream;
+  CountModel countModel = CountModel();
 
   @override
   void initState() {
@@ -72,6 +75,12 @@ class _CharacteristicInteractionDialogState
 
     // 켜자마자 구독 시작
     subscribeCharacteristic();
+
+    // 이 화면 오자마자 운동 시작
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const ExersiseCountScreen()),
+    );
     super.initState();
   }
 
@@ -82,6 +91,9 @@ class _CharacteristicInteractionDialogState
   }
 
   Future<void> subscribeCharacteristic() async {
+    // Access the current instance of CountModel.
+    CountModel countModel = Provider.of<CountModel>(context, listen: false);
+
     subscribeStream =
         widget.subscribeToCharacteristic(widget.characteristic).listen((event) {
       setState(() {
@@ -92,6 +104,8 @@ class _CharacteristicInteractionDialogState
 
         subscribeOutput = event.toString();
         count++;
+        //CountModel().incrementCount(count);
+        countModel.incrementCount(count);
         print("subscribeOutput: $subscribeOutput");
       });
     });
@@ -189,16 +203,21 @@ class _CharacteristicInteractionDialogState
 
   List<Widget> get subscribeSection => [
         sectionHeader('Subscribe / notify'),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ElevatedButton(
-              onPressed: subscribeCharacteristic,
-              child: const Text('Subscribe'),
-            ),
-            //Text('Output: $subscribeOutput'),
-            Text('Count: $count'), // 카운팅 표시
-          ],
+        Consumer<CountModel>(
+          builder: (context, countModel, _) => Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  subscribeCharacteristic();
+                  //countModel.incrementCount(); // increment count
+                },
+                child: const Text('Subscribe'),
+              ),
+              //Text('Output: $subscribeOutput'),
+              Text('Count: $count'), // display count
+            ],
+          ),
         ),
       ];
 

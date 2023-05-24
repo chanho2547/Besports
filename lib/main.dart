@@ -4,6 +4,7 @@ import 'package:besports/features/bluetooth/ble/ble_device_interactor.dart';
 import 'package:besports/features/bluetooth/ble/ble_logger.dart';
 import 'package:besports/features/bluetooth/ble/ble_scanner.dart';
 import 'package:besports/features/bluetooth/ble/ble_status_monitor.dart';
+import 'package:besports/features/exercise/count_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reactive_ble/flutter_reactive_ble.dart';
 import 'package:provider/provider.dart';
@@ -32,6 +33,7 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => CountModel()),
         Provider.value(value: scanner),
         Provider.value(value: monitor),
         Provider.value(value: connector),
@@ -68,7 +70,7 @@ void main() {
 }
 
 class BesportsApp extends StatelessWidget {
-  const BesportsApp({super.key});
+  const BesportsApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
