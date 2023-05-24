@@ -45,6 +45,8 @@ dependencies:
   functional_data: ^1.0.0
   permission_handler: ^10.2.0
   #flutter_blue: ^0.8.0
+  #flutter_circular_chart: ^0.1.0
+  syncfusion_flutter_charts: ^19.3.54
 
 # dependency_overrides:
 #   flutter_reactive_ble:

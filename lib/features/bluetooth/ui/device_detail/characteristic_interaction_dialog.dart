@@ -77,10 +77,16 @@ class _CharacteristicInteractionDialogState
     subscribeCharacteristic();
 
     // 이 화면 오자마자 운동 시작
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const ExersiseCountScreen()),
-    );
+    // Navigator.push 1 second after this screen is loaded
+    Future.delayed(const Duration(microseconds: 10), () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const ExersiseCountScreen()),
+      );
+    });
+
+    //
+
     super.initState();
   }
 
